@@ -1,5 +1,6 @@
 import images from "./gallery-items.js";
-console.table(images);
+// console.table(images);
+const ulRef = document.querySelector(".js-gallery");
 
 const createGallery = (image) => {
   const liRef = document.createElement("li");
@@ -14,14 +15,13 @@ const createGallery = (image) => {
   imgRef.setAttribute("data-source", image.original);
   imgRef.setAttribute("alt", image.description);
 
-  liRef.appendChild(linkRef);
   linkRef.appendChild(imgRef);
+  liRef.appendChild(linkRef);
 
-  const ulRef = document.querySelector("ul.gallery");
-  ulRef.appendChild(liRef);
-  return ulRef;
+  return liRef;
 };
 
-images.forEach((image) => {
-  console.log(createGallery(image));
-});
+const galleryMap = images.map((image) => createGallery(image));
+console.log(galleryMap);
+
+ulRef.append(...galleryMap);
