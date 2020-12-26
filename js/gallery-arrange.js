@@ -16,3 +16,17 @@ console.log(liRef);
 
 const ulRef = document.querySelector("ul.gallery");
 ulRef.appendChild(liRef);
+// ulRef.append(...galleryMap);
+
+// ulRef.addEventListener("click", onUlClick);
+
+// function onUlClick(event) {
+//   event.preventDefault();
+//   console.log(event.target);
+//   if (event.target.nodeName !== "IMG") {
+//     return;
+//   }
+
+//   const largeImage = event.target.dataset.source;
+//   lightboxImage.src = largeImage;
+// }

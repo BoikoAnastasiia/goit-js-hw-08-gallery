@@ -26,9 +26,6 @@ const createGallery = (image) => {
 
 const galleryMap = images.map(createGallery);
 // console.log(galleryMap);
-ulRef.append(...createGallery);
-
-ulRef.addEventListener("click", OpenModal);
 
 function addModal() {
   lightboxImage.setAttribute("src", event.target.getAttribute("data-set"));
@@ -50,23 +47,10 @@ const SwitchHandler = (event) => {
   if (event.code === "Escape") {
     removeModal();
   }
-  // ulRef.append(...galleryMap);
 
-  // ulRef.addEventListener("click", onUlClick);
-
-  // function onUlClick(event) {
-  //   event.preventDefault();
-  //   console.log(event.target);
-  //   if (event.target.nodeName !== "IMG") {
-  //     return;
-  //   }
-
-  //   const largeImage = event.target.dataset.source;
-  //   lightboxImage.src = largeImage;
-  // }
   const galleryLinks = images.map(({ original }) => original);
   const prevImg = lightboxImage.getAttribute("src");
-  // console.dir(galleryArrayLinks);
+
   if (event.code === "ArrowLeft") {
     if (galleryLinks.indexOf(prevImg) > 0) {
       lightboxImage.setAttribute(
@@ -107,3 +91,6 @@ const openModal = (event) => {
     event.preventDefault();
   }
 };
+ulRef.append(...galleryMap);
+
+ulRef.addEventListener("click", openModal);
