@@ -37,9 +37,9 @@ function addModal() {
 
 function removeModal() {
   modalRef.classList.remove("is-open");
-  modalImgRef.setAttribute("src", "");
-  modalImgRef.setAttribute("alt", "");
-  modalImgRef.innerHTML = "";
+  lightboxImage.setAttribute("src", "");
+  lightboxImage.setAttribute("alt", "");
+  lightboxImage.innerHTML = "";
   window.removeEventListener("keydown", SwitchHandler);
   modalRef.removeEventListener("click", closeModalHandler);
 }
@@ -62,15 +62,15 @@ const SwitchHandler = (event) => {
   //   lightboxImage.src = largeImage;
   // }
   const galleryLinks = galleryArray.map(({ original }) => original);
-  const prevImg = modalImgRef.getAttribute("src");
+  const prevImg = lightboxImage.getAttribute("src");
   // console.dir(galleryArrayLinks);
   if (event.code === "ArrowLeft") {
     if (galleryLinks.indexOf(prevImg) > 0) {
-      modalImgRef.setAttribute(
+      lightboxImage.setAttribute(
         "src",
         galleryLinks[galleryLinks.indexOf(prevImg) - 1]
       );
-      modalImgRef.setAttribute(
+      lightboxImage.setAttribute(
         "alt",
         galleryArray[galleryLinks.indexOf(prevImg) - 1].description
       );
@@ -91,7 +91,7 @@ const SwitchHandler = (event) => {
 };
 
 const closeModal = (event) => {
-  //   console.dir(event.target === modalImgRef);
+  //   console.dir(event.target === lightboxImage);
   if (event.target === lightboxImage) {
     return;
   }
