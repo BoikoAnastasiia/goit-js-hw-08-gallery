@@ -25,7 +25,10 @@ const createGallery = (image) => {
 };
 
 const galleryMap = images.map(createGallery);
-console.log(galleryMap);
+// console.log(galleryMap);
+ulRef.append(...createGallery);
+
+ulRef.addEventListener("click", OpenModal);
 
 function addModal() {
   lightboxImage.setAttribute("src", event.target.getAttribute("data-set"));
@@ -61,7 +64,7 @@ const SwitchHandler = (event) => {
   //   const largeImage = event.target.dataset.source;
   //   lightboxImage.src = largeImage;
   // }
-  const galleryLinks = galleryArray.map(({ original }) => original);
+  const galleryLinks = images.map(({ original }) => original);
   const prevImg = lightboxImage.getAttribute("src");
   // console.dir(galleryArrayLinks);
   if (event.code === "ArrowLeft") {
@@ -72,7 +75,7 @@ const SwitchHandler = (event) => {
       );
       lightboxImage.setAttribute(
         "alt",
-        galleryArray[galleryLinks.indexOf(prevImg) - 1].description
+        images[galleryLinks.indexOf(prevImg) - 1].description
       );
     }
   }
@@ -96,4 +99,11 @@ const closeModal = (event) => {
     return;
   }
   removeModal();
+};
+
+const openModal = (event) => {
+  if (event.target.nodeName === "IMG" || event.target.nodeName === "A") {
+    addModal();
+    event.preventDefault();
+  }
 };
