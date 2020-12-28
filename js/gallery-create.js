@@ -30,6 +30,7 @@ function removeModal() {
   lightboxImage.innerHTML = "";
   window.removeEventListener("keydown", switchHandler);
   modalRef.removeEventListener("click", closeModal);
+  window.addEventListener("keydown", nextImg);
 }
 
 function addModal() {
@@ -38,44 +39,35 @@ function addModal() {
   modalRef.classList.add("is-open");
   modalRef.addEventListener("click", closeModal);
   window.addEventListener("keydown", switchHandler);
+  window.addEventListener("keydown", nextImg);
 }
 
+const imagesLinks = images.map(({ original }) => original);
+
 const switchHandler = (event) => {
-  //   console.dir(event.code);
   if (event.code === "Escape") {
     removeModal();
   }
-  const imagesLinks = images.map(({ original }) => original);
+};
+
+const nextImg = (event) => {
   const prevImg = lightboxImage.getAttribute("src");
-  // console.dir(imagesLinks);
+  const indexOfPrev = imagesLinks.indexOf(prevImg);
   if (event.code === "ArrowLeft") {
-    if (imagesLinks.indexOf(prevImg) > 0) {
-      lightboxImage.setAttribute(
-        "src",
-        imagesLinks[imagesLinks.indexOf(prevImg) - 1]
-      );
-      lightboxImage.setAttribute(
-        "alt",
-        images[imagesLinks.indexOf(prevImg) - 1].description
-      );
+    if (indexOfPrev > 0) {
+      lightboxImage.setAttribute("src", imagesLinks[indexOfPrev - 1]);
+      lightboxImage.setAttribute("alt", images[indexOfPrev - 1].description);
     }
   }
   if (event.code === "ArrowRight") {
-    if (imagesLinks.indexOf(prevImg) < imagesLinks.length - 1) {
-      lightboxImage.setAttribute(
-        "src",
-        imagesLinks[imagesLinks.indexOf(prevImg) + 1]
-      );
-      lightboxImage.setAttribute(
-        "alt",
-        images[imagesLinks.indexOf(prevImg) + 1].description
-      );
+    if (indexOfPrev < imagesLinks.length - 1) {
+      lightboxImage.setAttribute("src", imagesLinks[indexOfPrev + 1]);
+      lightboxImage.setAttribute("alt", images[indexOfPrev + 1].description);
     }
   }
 };
 
 const closeModal = (event) => {
-  //   console.dir(event.target === lightboxImage);
   if (event.target === lightboxImage) {
     return;
   }
@@ -87,10 +79,8 @@ const openModal = (event) => {
     addModal();
     event.preventDefault();
   }
-  //   getImgUrl(event);
-  //   console.log(getImgUrl(event));
 };
+
 ulRef.append(...galleryItems);
-// console.dir(thumbGallery);
 
 ulRef.addEventListener("click", openModal);
